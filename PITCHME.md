@@ -51,4 +51,25 @@ pros and cons
 
 ---
 
+### Docker
+
+![Docker](https://msdnshared.blob.core.windows.net/media/2017/10/docker.png)
+
+---
+
+
+---
+
+### Docker
+
+- platform for developing, shipping, and running applications
+- infrastructure as application/code
+- Open Container Initiative
+- Docker community edition
+
+---
+
+![Docker components](https://docs.docker.com/engine/images/architecture.svg)
+
+---
 
