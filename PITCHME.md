@@ -82,10 +82,10 @@ pros and cons
 ### Docker image - building
 
 - can be built from existing images
--- ubuntu, alpine
+  - ubuntu, alpine
 - any modification from base image is a new layer ( tip: use && )
 - base images can be created with tools such as Debootstrap
-
+- images have several layers
 ---
 
 ### Docker image - instructions
@@ -95,11 +95,28 @@ pros and cons
 - FROM
 - ADD, COPY
 - RUN
-- ENV, ARG
+- ENV PATH, ARG
+- USER, WORKDIR, LABEL
+- VOLUME, EXPOSE
 - CMD, (ENTRYPOINT)
-- USER, LABEL
+
+[Reference](https://docs.docker.com/engine/reference/builder/)
 
 ---
+
+### ** One tool, one container **
+
+- start from packages e.g. pip/PyPI, CPAN, or CRAN
+- use versions for tools and containers
+- use ENV PATH instead of ENTRYPOINT
+- reduce size as much as possible
+- keep data outside the container
+- check the license
+- make your container discoverable e.g. biocontainers, quay.io, docker hub
+
+---
+
+### Example
 
 ```bash
 FROM biocontainers/biocontainers:v1.0.0_cv4
@@ -138,6 +155,12 @@ ENV PATH /home/biodocker/bin/Comet:$PATH
 
 WORKDIR /data/
 ```
+---
 
+### Further reading ###
 
-- images have several layers
+- impact of docker containers on performance
+- container-based virtualization for HPC environments
+- article recommendations containers
+- article Grüning on virtualization
+
