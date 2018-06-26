@@ -164,3 +164,8 @@ WORKDIR /data/
 - article recommendations containers
 - article Grüning on virtualization
 
+---
+
+# Thanks
+
+- Bioinfo Core at CRG  [slides](https://github.com/biocorecrg/C4LWG-2018/tree/master/slides)
