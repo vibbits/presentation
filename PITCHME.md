@@ -1,15 +1,24 @@
-# Flux 
+# platforms for reproducibility 
 
-An application architecture for React
+overview of available options
+
 
 ---
 
-### Flux Design
+### what tools are available 
 
-- Dispatcher: Manages Data Flow
-- Stores: Handle State & Logic
-- Views: Render Data via React
+- for ad hoc workflows and tools: docker and singularity
+- for lightweight application: jupyter notebooks
+- for pipelines: shell scripts in github   
+- for software tools: bioconda/biocontainer  
+
+---
+
+
 
 ---
 
 ![Flux Explained](https://facebook.github.io/flux/img/flux-simple-f8-diagram-explained-1300w.png)
+
+---
+
