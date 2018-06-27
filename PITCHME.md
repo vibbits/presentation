@@ -166,7 +166,7 @@ WORKDIR /data/
 ---
 
 ![reproducibility stack](http://data.bits.vib.be/pub/trainingen/CommunityMeeting/20180627-reproducibility-stack.png)
-
+[Reference](https://www.biorxiv.org/content/early/2017/10/11/200683)
 ---
 
 ### Further reading ###
