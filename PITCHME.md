@@ -165,7 +165,7 @@ WORKDIR /data/
 
 ---
 
-![reproducibility stack](https://www.bits.vib.be/templates/protostar-material/images/vib_notag_neg_rgb.jpg)
+![reproducibility stack](http://data.bits.vib.be/pub/trainingen/CommunityMeeting/20180627-reproducibility-stack.png)
 
 ---
 
