@@ -159,13 +159,14 @@ WORKDIR /data/
 
 ### Further reading ###
 
-- impact of docker containers on performance
-- container-based virtualization for HPC environments
-- article recommendations containers
-- article Grüning on virtualization
+- [impact of docker containers on performance](https://peerj.com/articles/1273/)
+- [container-based virtualization for HPC environments](https://arxiv.org/abs/1709.10140)
+- recommendations on [containers](https://f1000research.com/articles/7-742/v1)
+- [practical computational reproducibility in life sciences](https://www.biorxiv.org/content/early/2017/10/11/200683)
 
 ---
 
 # Thanks
 
 - Bioinfo Core at CRG  [slides](https://github.com/biocorecrg/C4LWG-2018/tree/master/slides)
+- based on recommendation from [F1000](https://f1000research.com/articles/7-742/v1)
