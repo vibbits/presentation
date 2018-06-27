@@ -156,6 +156,18 @@ ENV PATH /home/biodocker/bin/Comet:$PATH
 WORKDIR /data/
 ```
 ---
+### recommendations ###
+
+- Carefully define a set of tools for a given analysis
+- Use tools from the Bioconda registry
+- Adopt containers to guarantee consistency of results
+- Use virtualization to make analyses “resistant to time”.
+
+---
+
+![reproducibility stack](https://www.bits.vib.be/templates/protostar-material/images/vib_notag_neg_rgb.jpg)
+
+---
 
 ### Further reading ###
 
