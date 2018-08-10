@@ -104,13 +104,13 @@ pros and cons
 
 ---
 
-### ** One tool, one container **
+### ** One tool, one image **
 
 - start from packages e.g. pip/PyPI, CPAN, or CRAN
-- use versions for tools and containers
+- use versions for tools and images
 - use ENV PATH instead of ENTRYPOINT
 - reduce size as much as possible
-- keep data outside the container
+- keep data outside the image/container
 - check the license
 - make your container discoverable e.g. biocontainers, quay.io, docker hub
 
