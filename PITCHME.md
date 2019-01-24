@@ -28,11 +28,10 @@
 ### So why does everyone love containers and Docker?
 
 - VM hypervisors are fat in terms of system requirements
-- small, neat capsule containing your application (4-6 times # server application instances)
+- small, neat capsule containing your application 
 - enables CI, CD
-- containers gives you instant application portability
-- easy to deploy in a cloud
-- make applications and workloads more portable and distributed in an effective, standardized, and repeatable way
+- containers gives you instant application portability and easy to deploy in a cloud
+- make applications and workloads more portable in an effective, standardized, and repeatable way
 
 ---
 
@@ -161,7 +160,7 @@ WORKDIR /data/
 ```
 ---
 
-https://github.com/BioContainers/containers/blob/master/biocontainers/1.0.0/Dockerfile(https://github.com/BioContainers/containers/blob/master/biocontainers/1.0.0/Dockerfile)
+github repo for biocontainers base image(https://github.com/BioContainers/containers/blob/master/biocontainers/1.0.0/Dockerfile)
 
 ```
 # Base image
