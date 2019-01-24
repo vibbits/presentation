@@ -1,25 +1,38 @@
-# platforms for reproducibility 
+# Interest Group Meeting 
+## Containers and Workflows
 
-overview of available options
+### 25.01.2019 Clemenspoort
 
 ---
 
-### what tools are available 
+### what options are available 
 
-- for ad hoc workflows and tools: docker and singularity
+---
+
+### what options are available 
+
+- for ad hoc workflows and tools: docker, singularity, make
 - for lightweight application: jupyter notebooks
-- for pipelines: shell scripts in github   
-- for software tools: bioconda/biocontainer  
-
----
-### devops 
-
-- software development + software operations
-- automate and monitor
+- for ad hoc pipelines: shell scripts in github
+- for (routine) pipelines: snakemake, Galaxy, nextflow (with tools from bioconda)     
+- for software tools: bioconda/biocontainers
+- ...
 
 ---
 
-![Devops Explained](https://hostadvice.com/wp-content/uploads/2018/03/devopsext.jpg)
+### So why does everyone love containers and Docker?
+
+
+---
+
+### So why does everyone love containers and Docker?
+
+- VM hypervisors are fat in terms of system requirements
+- small, neat capsule containing your application (4-6 times # server application instances)
+- enables CI, CD
+- containers gives you instant application portability
+- easy to deploy in a cloud
+- make applications and workloads more portable and distributed in an effective, standardized, and repeatable way
 
 ---
 
@@ -75,7 +88,6 @@ pros and cons
 - read-only templates
 - containers are run from them
 - images are not run
-- images have several layers
 
 ---
 
@@ -83,8 +95,8 @@ pros and cons
 
 - can be built from existing images
   - ubuntu, alpine
-- any modification from base image is a new layer ( tip: use && )
 - base images can be created with tools such as Debootstrap
+- any modification from base image is a new layer ( tip: use && )
 - images have several layers
 ---
 
@@ -119,42 +131,162 @@ pros and cons
 ### Example
 
 ```bash
+################## BASE IMAGE ######################
+
 FROM biocontainers/biocontainers:v1.0.0_cv4
 
-LABEL base_image=“biocontainers:v1.0.0_cv4”
+################## METADATA ######################
 
-LABEL version=“3”
+LABEL base_image="biocontainers:v1.0.0_cv4"
+LABEL version="2"
+LABEL software="NCBI BLAST+"
+LABEL software.version="2.2.31"
+LABEL about.summary="basic local alignment search tool"
+LABEL about.home="http://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastHome"
+LABEL about.documentation="http://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastHome"
+LABEL about.license_file="https://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/lxr/source/scripts/projects/blast/LICENSE"
+LABEL about.license="SPDX:MIT"
+LABEL extra.identifiers.biotools="BLAST"
+LABEL about.tags="Genomics"
 
-LABEL software=“Comet”
+################## MAINTAINER ######################
 
-LABEL software.version=“2016012”
+MAINTAINER Saulo Alves Aflitos <sauloal@gmail.com>
 
-LABEL about.summary=“an open source tandem mass spectrometry sequence database search tool”
+################## INSTALLATION ######################
 
-LABEL about.home=http://comet-ms.sourceforge.net
-
-LABEL about.documentation=http://comet-ms.sourceforge.net/parameters/parameters_2016010
-
-LABEL about.license_file=http://comet-ms.sourceforge.net
-
-LABEL about.license=“SPDX:Apache-2.0”
-
-LABEL extra.identifiers.biotools=“comet”
-
-LABEL about.tags=“Proteomics”
-
-LABEL maintainer=“Felipe da Veiga Leprevost <felipe@leprevost.com.br>”
-
-USER biodocker
-
-RUN ZIP=comet_binaries_2016012.zip && wget https://github.com/BioDocker/software-archive/releases/download/Comet/$ZIP-O/tmp/$ZIP&&unzip/tmp/$ZIP-d/home/biodocker/bin/Comet/&&chmod-R 755/home/biodocker/bin/Comet/*&&rm/tmp/$ZIP
-
-RUN mv/home/biodocker/bin/Comet/comet_binaries_2016012/comet.2016012.linux.exe/home/biodocker/bin/Comet/comet
-
-ENV PATH /home/biodocker/bin/Comet:$PATH
+RUN conda install blast=2.2.31
 
 WORKDIR /data/
 ```
+---
+
+https://github.com/BioContainers/containers/blob/master/biocontainers/1.0.0/Dockerfile(https://github.com/BioContainers/containers/blob/master/biocontainers/1.0.0/Dockerfile)
+
+```
+# Base image
+FROM ubuntu:16.04
+
+################## METADATA ######################
+
+LABEL base_image="ubuntu:16.04"
+LABEL version="4"
+LABEL software="Biocontainers base Image"
+LABEL software.version="1.0.0"
+LABEL about.summary="Base image for BioDocker"
+LABEL about.home="http://biocontainers.pro"
+LABEL about.documentation="https://github.com/BioContainers/specs/wiki"
+LABEL about.license_file="https://github.com/BioContainers/containers/blob/master/LICENSE"
+LABEL about.license="SPDX:Apache-2.0"
+LABEL about.tags="Genomics,Proteomics,Transcriptomics,General,Metabolomics"
+
+################## MAINTAINER ######################
+MAINTAINER Felipe da Veiga Leprevost <felipe@leprevost.com.br>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bkp && \
+    bash -c 'echo -e "deb mirror://mirrors.ubuntu.com/mirrors.txt xenial main restricted universe multiverse\n\
+deb mirror://mirrors.ubuntu.com/mirrors.txt xenial-updates main restricted universe multiverse\n\
+deb mirror://mirrors.ubuntu.com/mirrors.txt xenial-backports main restricted universe multiverse\n\
+deb mirror://mirrors.ubuntu.com/mirrors.txt xenial-security main restricted universe multiverse\n\n" > /etc/apt/sources.list' && \
+    cat /etc/apt/sources.list.bkp >> /etc/apt/sources.list && \
+    cat /etc/apt/sources.list
+
+RUN apt-get clean all && \
+    apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y  \
+        autotools-dev   \
+        automake        \
+        cmake           \
+        curl            \
+        grep            \
+        sed             \
+        dpkg            \
+        fuse            \
+        git             \
+        wget            \
+        zip             \
+        openjdk-8-jre   \
+        build-essential \
+        pkg-config      \
+        python          \
+	python-dev      \
+        python-pip      \
+        bzip2           \
+        ca-certificates \
+        libglib2.0-0    \
+        libxext6        \
+        libsm6          \
+        libxrender1     \
+        git             \
+        mercurial       \
+        subversion      \
+        zlib1g-dev &&   \
+        apt-get clean && \
+        apt-get purge && \
+        rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda2-4.0.5-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh
+
+RUN TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
+    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
+    dpkg -i tini.deb && \
+    rm tini.deb && \
+    apt-get clean
+
+RUN mkdir /data /config
+
+# Add user biodocker with password biodocker
+RUN groupadd fuse && \
+    useradd --create-home --shell /bin/bash --user-group --uid 1000 --groups sudo,fuse biodocker && \
+    echo `echo "biodocker\nbiodocker\n" | passwd biodocker` && \
+    chown biodocker:biodocker /data && \
+    chown biodocker:biodocker /config
+
+# give write permissions to conda folder
+RUN chmod 777 -R /opt/conda/
+
+# Change user
+USER biodocker
+
+ENV PATH=$PATH:/opt/conda/bin
+ENV PATH=$PATH:/home/biodocker/bin
+ENV HOME=/home/biodocker
+
+RUN mkdir /home/biodocker/bin
+
+RUN conda config --add channels r
+RUN conda config --add channels bioconda
+
+RUN conda upgrade conda
+
+VOLUME ["/data", "/config"]
+
+# Overwrite this with 'CMD []' in a dependent Dockerfile
+CMD ["/bin/bash"]
+
+WORKDIR /data
+```
+
+---
+### How to run the docker image
+
+```
+ $ cd /home/user/workplace
+ $ docker pull biocontainers/blast
+ $ docker run biocontainers/blast blastp -help
+ $ wget http://www.uniprot.org/uniprot/P04156.fasta    
+ $ curl -O ftp://ftp.ncbi.nih.gov/refseq/D_rerio/mRNA_Prot/zebrafish.1.protein.faa.gz
+ $ gunzip zebrafish.1.protein.faa.gz
+ $ docker run -v /Users/yperez/workplace:/data/ biocontainers/blast makeblastdb -in zebrafish.1.protein.faa -dbtype prot
+ $ docker run -v /Users/yperez/workplace:/data/ biocontainers/blast blastp -query P04156.fasta -db zebrafish.1.protein.faa -out results.txt
+```
+
 ---
 ### recommendations ###
 
@@ -182,3 +314,14 @@ WORKDIR /data/
 
 - Bioinfo Core at CRG  [slides](https://github.com/biocorecrg/C4LWG-2018/tree/master/slides)
 - based on recommendation from [F1000](https://f1000research.com/articles/7-742/v1)
+
+---
+
+### devops 
+
+- software development + software operations
+- automate and monitor
+
+---
+
+![Devops Explained](https://hostadvice.com/wp-content/uploads/2018/03/devopsext.jpg)
