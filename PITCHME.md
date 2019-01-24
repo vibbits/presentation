@@ -285,6 +285,10 @@ WORKDIR /data
  $ docker run -v /Users/yperez/workplace:/data/ biocontainers/blast makeblastdb -in zebrafish.1.protein.faa -dbtype prot
  $ docker run -v /Users/yperez/workplace:/data/ biocontainers/blast blastp -query P04156.fasta -db zebrafish.1.protein.faa -out results.txt
 ```
+---
+
+![reproducibility stack](http://data.bits.vib.be/pub/trainingen/CommunityMeeting/20180627-reproducibility-stack.png)
+[Reference](https://www.biorxiv.org/content/early/2017/10/11/200683)
 
 ---
 ### recommendations ###
@@ -294,11 +298,7 @@ WORKDIR /data
 - Adopt containers to guarantee consistency of results
 - Use virtualization to make analyses “resistant to time”.
 
----
 
-![reproducibility stack](http://data.bits.vib.be/pub/trainingen/CommunityMeeting/20180627-reproducibility-stack.png)
-[Reference](https://www.biorxiv.org/content/early/2017/10/11/200683)
----
 
 ### Further reading ###
 
