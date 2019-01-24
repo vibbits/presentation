@@ -160,7 +160,7 @@ WORKDIR /data/
 ```
 ---
 
-github repo for biocontainers base image(https://github.com/BioContainers/containers/blob/master/biocontainers/1.0.0/Dockerfile)
+[repo for biocontainers base image](https://github.com/BioContainers/containers/blob/master/biocontainers/1.0.0/Dockerfile)
 
 ```
 # Base image
