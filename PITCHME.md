@@ -298,7 +298,7 @@ WORKDIR /data
 - Adopt containers to guarantee consistency of results
 - Use virtualization to make analyses “resistant to time”.
 
-
+---
 
 ### Further reading ###
 
